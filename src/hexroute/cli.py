@@ -482,6 +482,12 @@ def plan(
         "--loop/--one-way",
         help="Whether route is a loop starting & ending at start location",
     ),
+    mode: str = typer.Option(
+        "walk",
+        "--mode",
+        "-m",
+        help="Exercise mode: 'walk' (run/walk) or 'bike' (cycling)",
+    ),
     targets_file: Optional[str] = typer.Option(
         "data/targets.csv",
         "--targets",
@@ -550,8 +556,15 @@ def plan(
     # Download or load OSM network
     # Radius is set to half the budget or at least 2.5 km
     graph_radius_m = max((budget_km * 1000.0) / 2.0, 2500.0)
-    typer.echo("Loading OpenStreetMap walking network...")
-    graph = get_walking_graph(lat=start_lat, lng=start_lng, dist_metres=graph_radius_m, cache_dir=cache_dir)
+    network_type = "bike" if mode.lower() in ("bike", "cycling", "cycle") else "walk"
+    typer.echo(f"Loading OpenStreetMap {network_type} network...")
+    graph = get_walking_graph(
+        lat=start_lat,
+        lng=start_lng,
+        dist_metres=graph_radius_m,
+        cache_dir=cache_dir,
+        network_type=network_type,
+    )
 
     typer.echo("Searching optimal route...")
     plan_result = plan_optimal_route(
@@ -608,6 +621,32 @@ def info(
     typer.echo(f"Data Directory:    {cfg['paths']['data_dir']}")
     typer.echo(f"Output Directory:  {cfg['paths']['out_dir']}")
     typer.echo(f"Cache Directory:   {cfg['paths']['cache_dir']}")
+
+
+@app.command(name="serve")
+def serve(
+    host: str = typer.Option("127.0.0.1", "--host", "-h", help="Host interface to bind (defaults to 127.0.0.1)"),
+    port: int = typer.Option(8080, "--port", "-p", help="Port to listen on (default: 8080)"),
+    no_browser: bool = typer.Option(False, "--no-browser", help="Do not automatically open browser"),
+) -> None:
+    """
+    Launch the interactive Hexroute Web UI in your browser for point-and-click route planning.
+    """
+    from hexroute.server import run_server
+    run_server(host=host, port=port, open_browser=not no_browser)
+
+
+@app.command(name="ui")
+def ui(
+    host: str = typer.Option("127.0.0.1", "--host", "-h", help="Host interface to bind (defaults to 127.0.0.1)"),
+    port: int = typer.Option(8080, "--port", "-p", help="Port to listen on (default: 8080)"),
+    no_browser: bool = typer.Option(False, "--no-browser", help="Do not automatically open browser"),
+) -> None:
+    """
+    Alias for 'hexroute serve' - Launch the interactive Web UI.
+    """
+    from hexroute.server import run_server
+    run_server(host=host, port=port, open_browser=not no_browser)
 
 
 if __name__ == "__main__":

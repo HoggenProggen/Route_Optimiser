@@ -1,7 +1,7 @@
 [general]
 h3_resolution = 8
-home_lat = 51.7484
-home_lng = -0.3078
+home_lat = 51.5074
+home_lng = -0.1278
 default_budget_km = 10.0
 
 [scoring]
