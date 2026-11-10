@@ -47,7 +47,7 @@ def get_walking_graph(
 
     ox.settings.http_user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     ox.settings.http_referer = "https://overpass-turbo.eu/"
-    ox.settings.requests_timeout = 30
+    ox.settings.requests_timeout = 600
     ox.settings.overpass_rate_limit = False
 
     overpass_endpoints = [
