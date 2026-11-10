@@ -44,18 +44,26 @@ def get_walking_graph(
             logger.warning(f"Failed to load cached graph: {e}. Re-downloading from OSM.")
 
     logger.info(f"Downloading OSM {network_type} network for ({lat:.4f}, {lng:.4f}, r={dist_metres:.0f}m)...")
-    
+
+    ox.settings.http_user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    ox.settings.http_referer = "https://overpass-turbo.eu/"
+    ox.settings.requests_timeout = 30
+    ox.settings.overpass_rate_limit = False
+
     overpass_endpoints = [
+        "https://overpass.openstreetmap.fr/api",
         "https://overpass-api.de/api",
+        "https://lz4.overpass-api.de/api",
+        "https://z.overpass-api.de/api",
         "https://overpass.kumi.systems/api",
-        "https://maps.mail.ru/osm/tools/overpass/api",
+        "https://overpass.private.coffee/api",
     ]
 
     graph = None
     last_err = None
     for endpoint in overpass_endpoints:
         try:
-            ox.settings.overpass_endpoint = endpoint
+            ox.settings.overpass_url = endpoint
             graph = ox.graph_from_point(
                 (lat, lng),
                 dist=dist_metres,
