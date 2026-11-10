@@ -92,7 +92,7 @@ cache_dir = "cache"
 
 ## Quick Start: Interactive Web App
 
-![Hexroute Web UI](docs/images/hexroute_web_ui.png)
+![Hexroute Web UI](docs/images/readmepreview.png)
 
 The easiest way to plan routes for you and your team is using the built-in Web UI:
 
