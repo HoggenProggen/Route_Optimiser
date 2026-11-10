@@ -727,6 +727,14 @@ def get_ui_html() -> str:
             <button class="btn-secondary" onclick="syncLiveStrods()">
                 <i class="fa-solid fa-arrows-rotate"></i> Sync Live Strods Territory
             </button>
+
+            <!-- Legal Disclaimer & User Responsibility -->
+            <div style="margin-top: 6px; padding: 10px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 11px; color: #64748b; line-height: 1.4;">
+                <div style="font-weight: 700; color: #334155; margin-bottom: 3px; display: flex; align-items: center; gap: 5px;">
+                    <i class="fa-solid fa-triangle-exclamation" style="color: #f59e0b;"></i> Legal Disclaimer
+                </div>
+                Automated route suggestion. Do not follow routes blindly. You are solely responsible for verifying public rights-of-way, safety, private property, and local laws. User assumes all risk.
+            </div>
         </div>
     </div>
 
