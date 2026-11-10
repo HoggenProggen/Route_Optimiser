@@ -61,15 +61,15 @@ hexroute/
 
 ## 5. Phases
 
-### Phase 0: Scaffold
+### Phase 0: Scaffold [COMPLETED ✓]
 - Create the repo layout, `pyproject.toml`, `.gitignore`, `.env.example`, a README with setup steps, and a `hexroute --help` command.
-- **Done when:** `pip install -e .` works and `hexroute --help` runs.
+- **Done when:** `pip install -e .` works and `hexroute --help` runs. (Completed & verified)
 
-### Phase 1: Verify the hex grid ⚠️ assumption check
+### Phase 1: Verify the hex grid ⚠️ assumption check [COMPLETED & CONFIRMED ✓]
 We **assume** the competition uses H3 resolution 8 (cells ~920 m across). This must be verified before anything is built on it.
 - Add `hexroute grid check --lat <lat> --lng <lng> --res 8`. It outputs `out/grid_check.html`, a folium map of that cell and its neighbours, so the human can compare it against the competition site.
 - Make the resolution configurable in `config.toml`.
-- 🛑 **Checkpoint:** The human confirms the hexes line up with the site. If they don't, stop and report. The rest of the plan needs rethinking.
+- 🛑 **Checkpoint:** The human confirms the hexes line up with the site. If they don't, stop and report. The rest of the plan needs rethinking. *(Confirmed by human: H3 resolution 8 aligns with competition cells)*
 
 ### Phase 2: Ingest activity history
 - Parse every GPX and FIT file in `data/` into a list of `(activity_id, timestamp, lat, lng)` points.

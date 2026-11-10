@@ -1,8 +1,24 @@
 """Configuration loader for hexroute."""
 
+import os
 from pathlib import Path
 import tomllib
 from typing import Any
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    # Minimal fallback .env parser if python-dotenv is not yet initialized
+    env_file = Path.cwd() / ".env"
+    if env_file.exists():
+        with open(env_file, "r", encoding="utf-8") as _f:
+            for _line in _f:
+                _line = _line.strip()
+                if _line and not _line.startswith("#") and "=" in _line:
+                    _k, _v = _line.split("=", 1)
+                    if _k.strip() not in os.environ:
+                        os.environ[_k.strip()] = _v.strip()
 
 
 def find_config_file(custom_path: str | Path | None = None) -> Path | None:
