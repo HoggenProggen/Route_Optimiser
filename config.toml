@@ -1,0 +1,16 @@
+[general]
+h3_resolution = 8
+home_lat = 51.5074
+home_lng = -0.1278
+default_budget_km = 10.0
+
+[scoring]
+enemy = 3.0
+unclaimed = 2.0
+ours = 0.0
+adjacent_bonus = 0.5
+
+[paths]
+data_dir = "data"
+out_dir = "out"
+cache_dir = "cache"
